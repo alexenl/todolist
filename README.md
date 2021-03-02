@@ -1,3 +1,5 @@
+![Preview image](previewImage.png)
+
 # Todo list
 * react
 * react-redux
@@ -9,5 +11,3 @@
 Реализовано добавление/удаление/завершение задачи, возможность фильтрации задач по статусу.
 
 [Preview link](http://utopian-knowledge.surge.sh)
-
-![Preview image](previewImage.png)
