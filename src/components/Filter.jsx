@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/index.js';
+import cn from 'classnames';
 
 const filters = [['all', 'All Tasks'], ['active', 'Active Tasks'], ['finished', 'Finished Tasks']];
 
-const mapStateToProps = (state) => {
-  const { tasks: { currentFilterName } } = state;
-  return { currentFilterName };
-};
+const mapStateToProps = ({ tasks: { currentFilterName } }) => ({
+  currentFilterName,
+});
 
 const actionCreators = {
   setTasksFilter: actions.setTasksFilter,
@@ -22,14 +22,18 @@ const Filter = ({
   };
 
   const renderFilter = ([state, name]) => {
-    if (currentFilterName === state) {
-      return name;
-    }
+    const isActive = currentFilterName === state;
+    const buttonClasses = cn({
+      'btn': true,
+      'btn-outline-primary': !isActive,
+      'btn-primary': isActive,
+    });
+
     return (
       <button
         type="button"
         key={state}
-        className="btn btn-link border-0 p-0"
+        className={buttonClasses}
         onClick={handleSetTasksFilter(state)}
       >
         {name}
@@ -38,7 +42,7 @@ const Filter = ({
   };
 
   return (
-    <div className="mt-3 d-flex justify-content-around">
+    <div className="mt-4 d-flex btn-group">
       {filters.map(renderFilter)}
     </div>
   );

@@ -8,6 +8,7 @@ const tasks = handleActions({
   [actions.addTask](state, { payload: { task } }) {
     const { byId, allIds } = state;
     return {
+      ...state,
       byId: { ...byId, [task.id]: task },
       allIds: [task.id, ...allIds],
     };
@@ -15,6 +16,7 @@ const tasks = handleActions({
   [actions.removeTask](state, { payload: { id } }) {
     const { byId, allIds } = state;
     return {
+      ...state,
       byId: _.omit(byId, id),
       allIds: _.without(allIds, id),
     };
@@ -28,7 +30,13 @@ const tasks = handleActions({
       byId: { ...state.byId, [task.id]: updatedTask },
     };
   },
-}, { byId: {}, allIds: [] });
+  [actions.setTasksFilter](state, { payload: { filterName } }) {
+    return {
+      ...state,
+      currentFilterName: filterName,
+    };
+  },
+}, { byId: {}, allIds: [], currentFilterName: 'all' });
 
 export default combineReducers({
   tasks,

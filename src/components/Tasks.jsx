@@ -1,13 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/index.js';
-// import { filteredTasksSelector } from '../selectors/index.js';
+import { filteredTasksSelector } from '../selectors/index.js';
 
-const mapStateToProps = (state) => {
-  const { tasks: { byId, allIds } } = state;
-  const tasks = allIds.map((id) => byId[id]);
-  return { tasks };
-};
+const mapStateToProps = (state) => ({
+  tasks: filteredTasksSelector(state),
+});
 
 const actionCreators = {
   removeTask: actions.removeTask,
